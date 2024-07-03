@@ -1,1 +1,23 @@
+# Ignore virtual environments
+venv/
+.venv/
+
+# Python bytecode
 __pycache__/
+*.pyc
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment variables file
+.env
+
+# macOS specific files
+.DS_Store
+
+# PyCharm specific files
+.idea/
+
+# VS Code specific files
+.vscode/
+
