@@ -32,11 +32,18 @@ laser_rect = laser_surface.get_frect(bottomleft=(20, WINDOW_HEIGHT - 20))
 
 while running:
     dt = clock.tick() / 1000
-    print(clock.get_fps())
     # event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_1:
+            print(1)
+        if event.type == pygame.MOUSEMOTION:
+             player_rect.center = event.pos
+
+    # Input
+    pygame.mouse.get_pos()
+
 
     # draw the game
     display_surface.fill('grey20')
@@ -45,15 +52,6 @@ while running:
 
     display_surface.blit(meteor_surface, meteor_rect)
     display_surface.blit(laser_surface, laser_rect)
-
-    # Player Movement
-    if player_rect.bottom > WINDOW_HEIGHT or player_rect.top < 0:
-        player_direction.y *= -1
-    elif player_rect.right >= WINDOW_WIDTH or player_rect.left < 0:
-        player_direction.x *= -1
-
-
-    player_rect.center += player_direction * player_speed * dt
     display_surface.blit(player_surface, player_rect)
 
     pygame.display.update()
