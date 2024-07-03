@@ -18,7 +18,7 @@ x = 100
 # Imports
 player_surface = pygame.image.load(join('images', 'player.png')).convert_alpha()
 player_rect = player_surface.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
-player_direction = pygame.math.Vector2(2,-1)
+player_direction = pygame.math.Vector2(2, -1)
 player_speed = 22
 
 star_surface = pygame.image.load(join('images', 'star.png')).convert_alpha()
