@@ -18,8 +18,8 @@ x = 100
 # Imports
 player_surface = pygame.image.load(join('images', 'player.png')).convert_alpha()
 player_rect = player_surface.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
-player_direction = pygame.math.Vector2(2, -1)
-player_speed = 22
+player_direction = pygame.math.Vector2(1, 0)
+player_speed = 10
 
 star_surface = pygame.image.load(join('images', 'star.png')).convert_alpha()
 star_positions = [(randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)) for i in range(50)]
@@ -31,7 +31,8 @@ laser_surface = pygame.image.load(join('images', 'laser.png')).convert_alpha()
 laser_rect = laser_surface.get_frect(bottomleft=(20, WINDOW_HEIGHT - 20))
 
 while running:
-    clock.tick(30)
+    dt = clock.tick()
+    print(clock.get_fps())
     # event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
