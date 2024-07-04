@@ -46,8 +46,9 @@ while running:
     keys = pygame.key.get_pressed()
     player_direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
     player_direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
+    player_direction = player_direction.normalize() if player_direction else player_direction
     player_rect.center += player_direction * player_speed * dt
-    print ((player_direction * player_speed).magnitude())
+
 
 
     # draw_the_game
