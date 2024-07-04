@@ -37,12 +37,15 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_1:
-            print(1)
-        if event.type == pygame.MOUSEMOTION:
-             player_rect.center = event.pos
+           print(1)
+        #if event.type == pygame.MOUSEMOTION:
+        #   player_rect.center = event.pos
 
-    # Input
-    pygame.mouse.get_pos()
+   # Input
+   # print(pygame.mouse.get_rel())
+   # keys = pygame.key.get_pressed()
+   # if keys[pygame.K_1]:
+   #     print(1)
 
 
     # draw the game
