@@ -42,10 +42,7 @@ while running:
         #   player_rect.center = event.pos
 
    # Input
-   # print(pygame.mouse.get_rel())
-   # keys = pygame.key.get_pressed()
-   # if keys[pygame.K_1]:
-   #     print(1)
+
 
 
     # draw the game
