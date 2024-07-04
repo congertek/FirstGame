@@ -48,7 +48,7 @@ while running:
 
     recent_keys = pygame.key.get_just_pressed()
     if recent_keys[pygame.K_SPACE]:
-        print('BANG!')
+        print('Fire Key Pressed!')
 
     # draw_the_game
     display_surface.fill('grey20')
