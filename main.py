@@ -36,14 +36,17 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_1:
+           print(1)
+        #if event.type == pygame.MOUSEMOTION:
+        #   player_rect.center = event.pos
 
-    # Input
-    # print(pygame.mouse.get_rel())
-    keys = pygame.key.get_pressed()
-    player_direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
-    player_direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
+   # Input
+   # print(pygame.mouse.get_rel())
+   # keys = pygame.key.get_pressed()
+   # if keys[pygame.K_1]:
+   #     print(1)
 
-    player_rect.center += player_direction * player_speed * dt
 
     # draw the game
     display_surface.fill('grey20')
