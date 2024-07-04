@@ -2,6 +2,8 @@ import pygame
 from random import randint
 from os.path import join
 
+class Player(pygame.sprite.Sprite):
+
 # General setup
 pygame.init()
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
