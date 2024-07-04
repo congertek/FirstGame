@@ -30,6 +30,11 @@ meteor_rect = meteor_surface.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT /
 laser_surface = pygame.image.load(join('images', 'laser.png')).convert_alpha()
 laser_rect = laser_surface.get_frect(bottomleft=(20, WINDOW_HEIGHT - 20))
 
+
+def pint(param):
+    pass
+
+
 while running:
     dt = clock.tick() / 1000
     # event loop
@@ -42,6 +47,7 @@ while running:
     player_direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
     player_direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
     player_rect.center += player_direction * player_speed * dt
+    print ((player_direction * player_speed).magnitude())
 
 
     # draw_the_game
