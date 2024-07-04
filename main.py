@@ -21,6 +21,7 @@ player_rect = player_surface.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT /
 player_direction = pygame.math.Vector2(1, 1)
 player_speed = 300
 
+
 star_surface = pygame.image.load(join('images', 'star.png')).convert_alpha()
 star_positions = [(randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)) for i in range(50)]
 
@@ -29,11 +30,7 @@ meteor_rect = meteor_surface.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT /
 
 laser_surface = pygame.image.load(join('images', 'laser.png')).convert_alpha()
 laser_rect = laser_surface.get_frect(bottomleft=(20, WINDOW_HEIGHT - 20))
-
-
-def pint(param):
-    pass
-
+laser_direction = pygame.math.Vector2(1, 1)
 
 while running:
     dt = clock.tick() / 1000
@@ -49,7 +46,9 @@ while running:
     player_direction = player_direction.normalize() if player_direction else player_direction
     player_rect.center += player_direction * player_speed * dt
 
-
+    recent_keys = pygame.key.get_just_pressed()
+    if recent_keys[pygame.K_SPACE]:
+        print('BANG!')
 
     # draw_the_game
     display_surface.fill('grey20')
