@@ -21,6 +21,11 @@ class Player(pygame.sprite.Sprite):
         recent_keys = pygame.key.get_just_pressed()
         if recent_keys[pygame.K_SPACE]:
             print('Fire laser!')
+class Star(pygame.sprite.Sprite):
+    def __init__(self, groups, surf):
+        super().__init__(groups)
+        self.image = surf
+        self.rect = self.image.get_frect(center = (randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)))
 
 # General Setup
 pygame.init()
@@ -35,12 +40,13 @@ surf = pygame.Surface((100, 200))
 surf.fill('green')
 x = 100
 
-#Create an instance of the Player Class
+#Create an instance of the Player and Star Class
 all_sprites = pygame.sprite.Group()
-player = Player(all_sprites)
+star_surf = pygame.image.load(join('images', 'star.png')).convert_alpha()
+for i in range(20):
+    Star(all_sprites, star_surf)
 
-star_surface = pygame.image.load(join('images', 'star.png')).convert_alpha()
-star_positions = [(randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)) for i in range(50)]
+player = Player(all_sprites)
 
 meteor_surface = pygame.image.load(join('images', 'meteor.png')).convert_alpha()
 meteor_rect = meteor_surface.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
@@ -60,8 +66,8 @@ while running:
 
     # draw_the_game
     display_surface.fill('grey20')
-    for pos in star_positions:
-        display_surface.blit(star_surface, pos)
+    #for pos in star_positions:
+    #   display_surface.blit(star_surface, pos)
 
     all_sprites.draw(display_surface)
 
