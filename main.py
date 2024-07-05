@@ -3,8 +3,12 @@ from random import randint
 from os.path import join
 
 class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load(join('images', 'player.png')).convert_alpha()
+        self.rect = self.image.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
 
-# General setup
+
 pygame.init()
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
 display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -17,12 +21,13 @@ surf = pygame.Surface((100, 200))
 surf.fill('green')
 x = 100
 
-# Imports
-player_surface = pygame.image.load(join('images', 'player.png')).convert_alpha()
-player_rect = player_surface.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
-player_direction = pygame.math.Vector2(1, 1)
-player_speed = 300
+player = Player()
 
+# Imports
+# player_surface = pygame.image.load(join('images', 'player.png')).convert_alpha()
+# player_rect = player_surface.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+# player_direction = pygame.math.Vector2(1, 1)
+# player_speed = 300
 
 star_surface = pygame.image.load(join('images', 'star.png')).convert_alpha()
 star_positions = [(randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)) for i in range(50)]
@@ -42,11 +47,11 @@ while running:
             running = False
 
     # Input
-    keys = pygame.key.get_pressed()
-    player_direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
-    player_direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
-    player_direction = player_direction.normalize() if player_direction else player_direction
-    player_rect.center += player_direction * player_speed * dt
+    # keys = pygame.key.get_pressed()
+    # player_direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
+    # player_direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
+    # player_direction = player_direction.normalize() if player_direction else player_direction
+    # player_rect.center += player_direction * player_speed * dt
 
     recent_keys = pygame.key.get_just_pressed()
     if recent_keys[pygame.K_SPACE]:
@@ -59,7 +64,7 @@ while running:
 
     display_surface.blit(meteor_surface, meteor_rect)
     display_surface.blit(laser_surface, laser_rect)
-    display_surface.blit(player_surface, player_rect)
+    # display_surface.blit(player_surface, player_rect)
 
     pygame.display.update()
 
