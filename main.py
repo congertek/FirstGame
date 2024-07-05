@@ -2,7 +2,6 @@ import pygame
 from random import randint
 from os.path import join
 
-
 class Player(pygame.sprite.Sprite):
     def __init__(self, groups):
         super().__init__(groups)
@@ -39,12 +38,20 @@ class Star(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = surf
         self.rect = self.image.get_frect(center = (randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)))
-
 class Laser(pygame.sprite.Sprite):
     def __init__(self, surf, pos, groups):
         super().__init__(groups)
         self.image = surf
         self.rect = self.image.get_frect(midbottom = pos)
+    def update(self, dt):
+        self.rect.centery -= 400 * dt
+        if self.rect.bottom < 0:
+            self.kill()
+class Meteor(pygame.sprite.Sprite):
+    def __init__(self, surf, pos, groups):
+        super().__init__(groups)
+        self.image = surf
+        self.rect = self.image.get_frect(center = pos)
 
 # General Setup
 pygame.init()
@@ -54,23 +61,16 @@ pygame.display.set_caption('Space Shooter')
 running = True
 clock = pygame.time.Clock()
 
-# Plain Surface
-surf = pygame.Surface((100, 200))
-surf.fill('green')
-x = 100
-
-#Create an instance of the Player and Star Class
-all_sprites = pygame.sprite.Group()
+# Import
 star_surf = pygame.image.load(join('images', 'star.png')).convert_alpha()
+meteor_surface = pygame.image.load(join('images', 'meteor.png')).convert_alpha()
+laser_surface = pygame.image.load(join('images', 'laser.png')).convert_alpha()
+
+# Sprites
+all_sprites = pygame.sprite.Group()
 for i in range(20):
     Star(all_sprites, star_surf)
-
 player = Player(all_sprites)
-
-meteor_surface = pygame.image.load(join('images', 'meteor.png')).convert_alpha()
-meteor_rect = meteor_surface.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
-
-laser_surface = pygame.image.load(join('images', 'laser.png')).convert_alpha()
 
 # Custom events -> Meteor event
 meteor_event = pygame.event.custom_type()
@@ -83,7 +83,8 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == meteor_event:
-            print('Creating Meteor')
+            x, y = randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)
+            Meteor(meteor_surface, (x, y), all_sprites)
 
     all_sprites.update(dt)
 
