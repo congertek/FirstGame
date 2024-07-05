@@ -1,5 +1,5 @@
 import pygame
-from random import randint
+from random import randint, uniform
 from os.path import join
 
 class Player(pygame.sprite.Sprite):
@@ -53,9 +53,12 @@ class Meteor(pygame.sprite.Sprite):
         self.image = surf
         self.rect = self.image.get_frect(center = pos)
         self.start_time = pygame.time.get_ticks()
-        self.lifetime = 2000
+        self.lifetime = 3000
+        self.direction = pygame.Vector2(uniform(-1.0, 1.5),1)
+        self.speed = randint(400,500)
+
     def update(self, dt):
-        self.rect.centery += 400 * dt
+        self.rect.center += self.direction * self.speed * dt
         if pygame.time.get_ticks() - self.start_time >= self.lifetime:
             self.kill()
 # General Setup
