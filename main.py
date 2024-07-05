@@ -8,9 +8,26 @@ class Player(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = pygame.image.load(join('images', 'player.png')).convert_alpha()
         self.rect = self.image.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+        self.direction = pygame.Vector2()
+        self.speed = 300
 
-    def update(self):
-        print('ship is being updated')
+    def update(self, dt):
+        keys = pygame.key.get_pressed()
+        self.direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
+        self.direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
+        self.direction = self.direction.normalize() if self.direction else self.direction
+        self.rect.center += self.direction * self.speed * dt
+
+        recent_keys = pygame.key.get_just_pressed()
+        if recent_keys[pygame.K_SPACE]:
+            print('Fire laser!')
+
+
+ # Input
+    # player_direction = player_direction.normalize() if player_direction else player_direction
+    #
+    # if recent_keys[pygame.K_SPACE]:
+    #     print('You fired your gun')
 
 # General Setup
 
@@ -31,12 +48,6 @@ x = 100
 all_sprites = pygame.sprite.Group()
 player = Player(all_sprites)
 
-# Imports
-# player_surface = pygame.image.load(join('images', 'player.png')).convert_alpha()
-# player_rect = player_surface.get_frect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
-# player_direction = pygame.math.Vector2(1, 1)
-# player_speed = 300
-
 star_surface = pygame.image.load(join('images', 'star.png')).convert_alpha()
 star_positions = [(randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)) for i in range(50)]
 
@@ -54,18 +65,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # Input
-    # keys = pygame.key.get_pressed()
-    # player_direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
-    # player_direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
-    # player_direction = player_direction.normalize() if player_direction else player_direction
-    # player_rect.center += player_direction * player_speed * dt
-
-    # recent_keys = pygame.key.get_just_pressed()
-    # if recent_keys[pygame.K_SPACE]:
-    #     print('You fired your gun')
-
-    all_sprites.update()
+    all_sprites.update(dt)
 
     # draw_the_game
     display_surface.fill('grey20')
@@ -74,7 +74,6 @@ while running:
 
     display_surface.blit(meteor_surface, meteor_rect)
     display_surface.blit(laser_surface, laser_rect)
-    # display_surface.blit(player_surface, player_rect)
     all_sprites.draw(display_surface)
 
     pygame.display.update()
