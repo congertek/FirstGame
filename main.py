@@ -52,7 +52,12 @@ class Meteor(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = surf
         self.rect = self.image.get_frect(center = pos)
-
+        self.start_time = pygame.time.get_ticks()
+        self.lifetime = 2000
+    def update(self, dt):
+        self.rect.centery += 400 * dt
+        if pygame.time.get_ticks() - self.start_time >= self.lifetime:
+            self.kill()
 # General Setup
 pygame.init()
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
@@ -83,7 +88,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == meteor_event:
-            x, y = randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)
+            x, y = randint(0, WINDOW_WIDTH), randint(-200, -100)
             Meteor(meteor_surface, (x, y), all_sprites)
 
     all_sprites.update(dt)
