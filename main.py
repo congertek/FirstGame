@@ -22,16 +22,7 @@ class Player(pygame.sprite.Sprite):
         if recent_keys[pygame.K_SPACE]:
             print('Fire laser!')
 
-
- # Input
-    # player_direction = player_direction.normalize() if player_direction else player_direction
-    #
-    # if recent_keys[pygame.K_SPACE]:
-    #     print('You fired your gun')
-
 # General Setup
-
-
 pygame.init()
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
 display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -72,8 +63,6 @@ while running:
     for pos in star_positions:
         display_surface.blit(star_surface, pos)
 
-    display_surface.blit(meteor_surface, meteor_rect)
-    display_surface.blit(laser_surface, laser_rect)
     all_sprites.draw(display_surface)
 
     pygame.display.update()
